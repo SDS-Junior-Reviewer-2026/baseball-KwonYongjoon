@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameTest {
-
     private Game game;
     @BeforeEach
     void setUp() {
@@ -15,17 +14,20 @@ class GameTest {
         assertNotNull(game);
     }
 
-    @Test
-    void throwExceptionWhenInputIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            game.guess(null);
-        });
+    private void assertIllegalArgument(String guessNumber) {
+        try {
+            game.guess(guessNumber);
+            fail();
+        }
+        catch(IllegalArgumentException e) {
+
+        }
     }
 
     @Test
-    void throwExceptionWhenInputLengthIsUnmatched() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            game.guess("12");
-        });
+    public void throwIllegalArgumentExceptionInvalidInput() {
+        assertIllegalArgument(null);
+        assertIllegalArgument("12");
+        assertIllegalArgument("1234");
     }
 }
